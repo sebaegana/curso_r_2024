@@ -1,0 +1,81 @@
+---
+title: "Prueba 01"
+author: "Sebastián Egaña"
+format: html
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be **generated** that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+Vamos a añadir una tabla:
+
+| Alumnos  | Edad | Sexo |
+|----------|------|------|
+| Alumno 1 | 25   | F    |
+| Alumno 2 | 24   | M    |
+| Alumno 3 | 22   | F    |
+
+## Tabla desde ChatGPT
+
+| Nombre | Edad | Sexo      |
+|--------|------|-----------|
+| Ana    | 12   | Femenino  |
+| Luis   | 13   | Masculino |
+| Carla  | 11   | Femenino  |
+| Javier | 14   | Masculino |
+| Sofía  | 12   | Femenino  |
+| Martín | 13   | Masculino |
+
+## Ejemplo de ecuación:
+
+```{=tex}
+\begin{equation}
+    E = mc^2
+\end{equation}
+```
+## Ecuación con HTML
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Ecuación en HTML</title>
+
+</head>
+
+<body>
+
+<h1>Ecuación de Einstein</h1>
+
+<math xmlns="http://www.w3.org/1998/Math/MathML"> <mi>E</mi> <mo>=</mo> <mi>m</mi> <mo>⁢</mo> <msup> <mi>c</mi> <mn>2</mn> </msup> </math>
+
+</body>
+
+</html>
+
+## Algunos enlaces relevantes:
+
+Para poder aplicar opciones de Quarto: [opciones en Quarto](https://rstudio.github.io/cheatsheets/html/quarto.html)
+
+CheatSheet relacionado: [enlace acá](https://rstudio.github.io/cheatsheets/quarto.pdf)
