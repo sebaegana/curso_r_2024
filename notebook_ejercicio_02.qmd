@@ -1,0 +1,114 @@
+---
+title: "Primeros ejercicios financieros"
+format: html
+editor: visual
+---
+
+# Inicio
+
+**Para agregar un chunk de código (espacio de código en el documento), el atajo es ctrl + alt + i**.
+
+## Calcular mediana de un vector
+
+```{r}
+data <- c(10,15,20,25,30)
+# Calculating median
+
+median_value <- median(data)
+print(median_value)
+
+```
+
+Usando funciones:
+
+```{r}
+# Sample data
+data <- c(10, 15, 20, 25, 30)
+
+# Sorting the data
+sorted_data <- sort(data)
+
+# Calculating the median
+n <- length(sorted_data)
+if (n %% 2 == 0) {
+  median_value <- (sorted_data[n/2] + sorted_data[n/2 + 1]) / 2
+} else {
+  median_value <- sorted_data[(n + 1) / 2]
+}
+
+print(median_value)
+```
+
+## Calcular la media de un vector
+
+```{r}
+# Sample data
+data <- c(10, 15, 20, 25, 30)
+
+# Calculating average (mean)
+average_value <- mean(data)
+print(average_value)
+```
+
+Utilizando funciones:
+
+```{r}
+# Sample data
+data <- c(10, 15, 20, 25, 30)
+
+# Calculating the sum
+sum_value <- sum(data)
+
+# Calculating the number of elements
+n <- length(data)
+
+# Calculating the average
+average_value <- sum_value / n
+
+print(average_value)
+```
+
+## Calculamos la desviación estándar
+
+```{r}
+# Sample data
+data <- c(10, 15, 20, 25, 30)
+
+# Calculating standard deviation
+std_dev_value <- sd(data)
+print(std_dev_value)
+```
+
+Generando una función:
+
+```{r}
+# Sample data
+data <- c(10, 15, 20, 25, 30)
+
+# Calculating the average (mean)
+mean_value <- sum(data) / length(data)
+
+# Calculating the squared differences from the mean
+squared_diff <- (data - mean_value)^2
+
+# Calculating the variance
+variance <- sum(squared_diff) / (length(data) - 1)
+
+# Calculating the standard deviation
+std_dev_value <- sqrt(variance)
+
+print(std_dev_value)
+```
+
+Recordar que para la población:
+
+$$
+\sigma^2 = \frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2
+$$
+
+Y para la muestra:
+
+$$
+s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+$$
+No olvidar que la desviación estándar es la raíz de la varianza. 
