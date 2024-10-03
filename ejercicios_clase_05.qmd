@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-## Quarto
+## Retornos
 
 ```{r}
 # Load necessary library
@@ -20,7 +20,7 @@ data <- data.frame(dates, actual_returns, benchmark_returns)
 data
 ```
 
-
+## Gráfico retornos
 
 ```{r}
 # Plot using ggplot
@@ -33,4 +33,77 @@ ggplot(data, aes(x = dates)) +
 
 ```
 
+## Ex-post Alpha
 
+```{r}
+# Sample data
+actual_returns <- c(0.08, 0.06, 0.05, 0.07, 0.09)  # Actual returns of the investment
+benchmark_returns <- c(0.07, 0.05, 0.04, 0.06, 0.08)  # Returns of the benchmark
+
+# Calculating ex-post alpha
+ex_post_alpha <- mean(actual_returns - benchmark_returns)
+print(ex_post_alpha)
+
+```
+## Ratio de treynor
+
+```{r}
+# Sample data
+excess_returns <- actual_returns - 0.03  # Assuming risk-free rate of 3%
+beta <- 1.2  # Example beta
+
+# Calculating Treynor ratio
+treynor_ratio <- mean(excess_returns) / beta
+print(treynor_ratio)
+
+```
+
+```{r}
+# Sample data
+excess_returns_01 <- benchmark_returns - 0.03  # Assuming risk-free rate of 3%
+beta <- 1.2  # Example beta
+
+# Calculating Treynor ratio
+treynor_ratio_01 <- mean(excess_returns_01) / beta
+print(treynor_ratio_01)
+
+```
+## Sharpe ratio
+
+```{r}
+# Sample data
+risk_free_rate <- 0.03
+
+# Calculating excess returns
+excess_returns <- actual_returns - risk_free_rate
+
+# Calculating Sharpe ratio
+sharpe_ratio <- mean(excess_returns) / sd(actual_returns)
+print(sharpe_ratio)
+
+```
+
+```{r}
+# Sample data
+risk_free_rate <- 0.03
+
+# Calculating excess returns
+excess_returns_01 <- benchmark_returns - risk_free_rate
+
+# Calculating Sharpe ratio
+sharpe_ratio_01 <- mean(excess_returns_01) / sd(benchmark_returns)
+print(sharpe_ratio_01)
+
+```
+## Information ratio
+
+```{r}
+# Sample data
+tracking_error <- sd(actual_returns - benchmark_returns)
+
+# Calculating information ratio
+information_ratio <- mean(actual_returns - benchmark_returns) / tracking_error
+
+print(information_ratio)
+
+```
