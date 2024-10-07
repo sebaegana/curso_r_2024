@@ -1,6 +1,5 @@
 ---
 title: |
-  | \includegraphics[width=5cm]{Imagen1.jpg}  
   | Finanzas en R
 subtitle: Visualization
 format: pdf
@@ -18,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, tinytex.verbose = TRUE, fig.pos = "H")
 library(readxl)
 library(tidyverse)
 
-data <- read_excel("data/data_visualization.xlsx")
+data <- read_excel("data_visualization.xlsx")
 
 data <- mutate(data, fecha_nacimiento_2 = as.POSIXct(fecha_nacimiento, format = "%d-%m-%Y"))
 
@@ -193,12 +192,12 @@ Dos maneras distintas de graficar lo mismo: una mejor que otra.
 
 Seis puntos claves:
 
-1. Comprender el contexto
-2. Elegir el gráfico adecuado
-3. Eliminar el caos
-4. Dirija la atención hacía donde le interese
-5. Piense como un diseñador
-6. Cuente una historia
+1.  Comprender el contexto
+2.  Elegir el gráfico adecuado
+3.  Eliminar el caos
+4.  Dirija la atención hacía donde le interese
+5.  Piense como un diseñador
+6.  Cuente una historia
 
 En relación a este enfoque, se puede consutar el siguiente material:
 

@@ -1,0 +1,157 @@
+---
+title: "Visualizaciones"
+format: html
+editor: visual
+---
+
+## Quarto
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, tinytex.verbose = TRUE, fig.pos = "H")
+
+library(readxl)
+library(tidyverse)
+
+data <- read_excel("data_visualization.xlsx")
+
+data <- mutate(data, fecha_nacimiento_2 = as.POSIXct(fecha_nacimiento, format = "%d-%m-%Y"))
+
+```
+
+
+
+## Aplicación de dataset
+
+Aplicarlo a los datos importados:
+
+```{r}
+p <- ggplot(data)
+p
+```
+```{r}
+length(unique(data$fibe))
+```
+```{r}
+length(unique(data$id_persona))
+```
+```{r}
+unique(data$parentesco)
+```
+## Ejes del gráfico
+
+Aplicamos el sistema de coordenadas
+
+```{r}
+p <- ggplot(data) + aes(x = sexo, y = fibe)
+
+p
+```
+## Gráfico de barras
+
+```{r}
+p <- ggplot(data) + aes(x = sexo) + geom_bar()
+
+p
+```
+
+Volteamos el gráfico:
+
+```{r}
+p <- ggplot(data) + aes(x = sexo) + geom_bar(aes(fill = afectacion))
+
+p
+```
+
+```{r}
+p <- ggplot(data) + aes(x = sexo, fill = afectacion) +
+geom_bar(position=position_dodge())
+p
+
+```
+
+```{r}
+library(ggplot2)
+
+p <- ggplot(data) + 
+  aes(x = sexo, fill = afectacion) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +  # Formato de porcentaje en el eje y
+  labs(y = "Proporción (%)") +  # Etiqueta del eje y
+  theme_minimal()  # Opción de tema para una visualización más limpia
+
+print(p)
+
+```
+
+```{r}
+# Supongamos que tu conjunto de datos se llama 'data'
+data$afectacion <- factor(data$afectacion, 
+                          levels = c("No afectada", "Poco afectada", "Medianamente afectada", "Muy afectada"))
+
+# Luego puedes crear el gráfico
+library(ggplot2)
+
+p <- ggplot(data) + 
+  aes(x = sexo, fill = afectacion) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::percent) +  # Formato de porcentaje en el eje y
+  labs(y = "Proporción (%)") +  # Etiqueta del eje y
+  theme_minimal()  # Opción de tema para una visualización más limpia
+
+print(p)
+
+```
+
+```{r}
+# Calcular los porcentajes
+data_summary <- data %>%
+  group_by(sexo, afectacion) %>%
+  summarise(n = n()) %>%
+  mutate(porcentaje = round(n / sum(n), 2)) %>%
+  ungroup()
+
+# Crear el gráfico con los porcentajes dentro
+p <- ggplot(data_summary, aes(x = sexo, y = porcentaje, fill = afectacion)) +
+  geom_bar(stat = "identity", position = "fill") +
+  geom_text(aes(label = scales::percent(porcentaje)), 
+            position = position_fill(vjust = 0.5), 
+            size = 4, color = "white") +  # Ajusta el color y tamaño del texto
+  scale_y_continuous(labels = scales::percent) +  # Formato de porcentaje en el eje y
+  labs(y = "Proporción (%)", fill = "Afectación") +  # Etiquetas
+  theme_minimal()  # Tema limpio
+
+print(p)
+```
+
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Crear una nueva variable que recodifique 'afectacion'
+data_recoded <- data %>%
+  mutate(afectacion_recoded = ifelse(afectacion == "No afectada", "No afectada", "Afectada"))
+
+# Calcular los porcentajes
+data_summary <- data_recoded %>%
+  group_by(sexo, afectacion_recoded) %>%
+  summarise(n = n()) %>%
+  mutate(porcentaje = n / sum(n)) %>%
+  ungroup()
+
+# Crear el gráfico
+p <- ggplot(data_summary, aes(x = sexo, y = porcentaje, fill = afectacion_recoded)) +
+  geom_bar(stat = "identity", position = "fill") +
+  geom_text(aes(label = scales::percent(porcentaje)), 
+            position = position_fill(vjust = 0.5), 
+            size = 4, color = "white") +  # Ajusta el color y tamaño del texto
+  scale_y_continuous(labels = scales::percent) +  # Formato de porcentaje en el eje y
+  labs(y = "Proporción (%)", fill = "Afectación") +  # Etiquetas
+  theme_minimal()  # Tema limpio
+
+print(p)
+
+
+```
+
