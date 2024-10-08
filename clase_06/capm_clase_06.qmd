@@ -1,0 +1,106 @@
+---
+title: "Regresión"
+format: html
+editor: visual
+---
+
+## Quarto
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(readxl)
+
+ejemplo <- read_excel("clase_06/ejemplo.xlsx")
+
+data <- ejemplo %>% 
+  mutate(year = substring(fecha, 1, 4),
+         ln_tcn = log(TCN),
+         ln_dxy = log(`DXY Index`),
+         ln_pcu = log(Pcu))
+
+```
+
+```{r}
+min(ejemplo$Pcu, na.rm = TRUE)
+```
+
+```{r}
+summary(ejemplo)
+```
+
+## Regresión
+
+Confirmamos los modelos:
+
+```{r}
+data_subset <- data %>% 
+  filter(year >= 2014)
+
+modelo_01 <- lm(TCN ~ `DXY Index`, data = data_subset)
+
+summary(modelo_01)
+
+modelo_02 <- lm(TCN ~ Pcu, data = data_subset)
+
+summary(modelo_02)
+```
+
+
+```{r}
+plot(data_subset$Pcu, data_subset$TCN,
+pch = 16, cex = 1.3, col = "blue",
+main = "Relación TCN y Pcu",
+xlab = "Pcu", ylab = "TCN")
+abline(lm(TCN ~ Pcu, data = data_subset))
+```
+
+## Ejemplo CAPM
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyquant)
+library(tidyverse)
+library(quantmod)
+library(timetk)
+library(broom)
+library(highcharter)
+library(ggpmisc)
+library(knitr)
+library(kableExtra)
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+# Tickers a descargar
+
+symbols <- c("SPY","EFA", "IJS", "EEM","AGG")
+
+prices <-
+  getSymbols(symbols,
+             src = 'yahoo',
+             from = "2012-12-31",
+             to = "2021-12-31",
+             auto.assign = TRUE,
+             warnings = FALSE) %>%
+  map(~Ad(get(.))) %>%
+  reduce(merge) %>%
+  `colnames<-`(symbols)
+```
+
+```{r}
+prices_monthly <- to.monthly(prices,
+                             indexAt = "lastof",
+                             OHLC = FALSE)
+head(prices_monthly, 3)
+```
+
+```{r, message=FALSE, warning=FALSE}
+# Cálculo del retorno usando logaritmos
+
+asset_returns_xts <-
+  Return.calculate(prices_monthly,
+                   method = "log") %>%
+  na.omit()
+
+head(asset_returns_xts, 3)
+```
+
