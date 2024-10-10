@@ -2,20 +2,56 @@
 title: "Untitled"
 format: html
 editor: visual
+execute:
+  warning: false
 ---
 
 ## Quarto
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+```{r}
+#| warning: false
+#| echo: true
+
+library(pa)
+```
+
+Llamado set de datos:
 
 ```{r}
+data("year")
+data("jan")
+names(year)
+```
+
+```{r}
+unique(year$sector)
+unique(year$country)
+unique(year$currency)
+unique(year$date)
+```
+
+```{r}
+unique(jan$date)
+```
+
+```{r}
+data(jan)
 br.single <- brinson(x = jan, date.var = "date",
-                      cat.var = "sector",
-                      bench.weight = "benchmark",
-                      portfolio.weight = "portfolio",
-                      ret.var = "return")
+                     cat.var = "sector",
+                     bench.weight = "benchmark",
+                     portfolio.weight = "portfolio",
+                     ret.var = "return")
+```
 
-
+```{r}
 summary(br.single)
 ```
+```{r}
+plot(br.single, var = "sector", type = "return")
+```
+
+
+
+
+
 
